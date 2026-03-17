@@ -156,34 +156,7 @@ let st={
   rep:null,repLoading:false
 };
 
-function set(u){st={...st,...u};
-(function(){
-  if(localStorage.getItem("ev_senha")) return;
-  document.getElementById("root").innerHTML=`
-  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f5;padding:20px">
-    <div style="background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:36px 32px;max-width:400px;width:100%;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
-      <div style="font-size:22px;font-weight:700;color:#185FA5;margin-bottom:4px">Agente Avaliador 2.0</div>
-      <div style="font-size:11px;color:#888;letter-spacing:.5px;text-transform:uppercase;margin-bottom:28px">Método Evolution · Acesso exclusivo</div>
-      <label style="font-size:13px;color:#555;text-align:left;margin-bottom:8px;display:block">Senha de acesso</label>
-      <input id="_sv" type="password" placeholder="••••••" autocomplete="off"
-        style="width:100%;background:#f5f5f5;border:1.5px solid #e0e0e0;border-radius:10px;padding:11px 14px;font-size:16px;letter-spacing:3px;text-align:center;outline:none;box-sizing:border-box"
-        onkeydown="if(event.key==='Enter')_ok()"/>
-      <div id="_se" style="color:#A32D2D;font-size:12px;margin:8px 0 0;display:none">Senha incorreta.</div>
-      <button onclick="_ok()" style="margin-top:14px;width:100%;background:#185FA5;color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">Entrar →</button>
-    </div>
-  </div>`;
-  window._semSenha=true;
-})();
-function _ok(){
-  const s=document.getElementById("_sv")?.value?.trim();
-  if(!s){document.getElementById("_se").style.display="block";return;}
-  localStorage.setItem("ev_senha",s);
-  window._semSenha=false;
-  document.getElementById("root").innerHTML="";
-  render();
-}
-
-if(!window._semSenha) render();}
+function set(u){st={...st,...u};render();}
 
 async function api(msgs,sys){
   const senha=localStorage.getItem("ev_senha")||"";
@@ -501,7 +474,17 @@ function bind(){
   document.getElementById("btn-copy")?.addEventListener("click",copyRep);
 }
 
-render();
+// Tela de senha
+function mostrarSenha(){
+  document.getElementById("root").innerHTML=`<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f5;padding:20px"><div style="background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:36px 32px;max-width:400px;width:100%;text-align:center"><div style="font-size:22px;font-weight:700;color:#185FA5;margin-bottom:4px">Agente Avaliador 2.0</div><div style="font-size:11px;color:#888;letter-spacing:.5px;text-transform:uppercase;margin-bottom:24px">Método Evolution</div><input id="sv" type="password" placeholder="senha" autocomplete="off" onkeydown="if(event.key==='Enter')entrar()" style="width:100%;padding:12px;border:1.5px solid #ddd;border-radius:8px;font-size:18px;text-align:center;letter-spacing:4px;outline:none;box-sizing:border-box"/><div id="se" style="color:red;font-size:12px;margin-top:8px;display:none">Senha incorreta</div><button onclick="entrar()" style="margin-top:12px;width:100%;background:#185FA5;color:#fff;border:none;border-radius:8px;padding:12px;font-size:15px;font-weight:600;cursor:pointer">Entrar</button></div></div>`;
+}
+function entrar(){
+  const s=(document.getElementById("sv")||{}).value||"";
+  if(!s.trim()){return;}
+  localStorage.setItem("ev_senha",s.trim());
+  render();
+}
+if(!localStorage.getItem("ev_senha")){mostrarSenha();}else{render();}
 </script>
 </body>
 </html>
