@@ -157,7 +157,6 @@ let st={
 };
 
 function set(u){st={...st,...u};
-// ── Tela de senha ──────────────────────────────────
 (function(){
   if(localStorage.getItem("ev_senha")) return;
   document.getElementById("root").innerHTML=`
@@ -165,7 +164,7 @@ function set(u){st={...st,...u};
     <div style="background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:36px 32px;max-width:400px;width:100%;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
       <div style="font-size:22px;font-weight:700;color:#185FA5;margin-bottom:4px">Agente Avaliador 2.0</div>
       <div style="font-size:11px;color:#888;letter-spacing:.5px;text-transform:uppercase;margin-bottom:28px">Método Evolution · Acesso exclusivo</div>
-      <label style="font-size:13px;color:#555;text-align:left;margin-bottom:8px;display:block">Senha de acesso do mês</label>
+      <label style="font-size:13px;color:#555;text-align:left;margin-bottom:8px;display:block">Senha de acesso</label>
       <input id="_sv" type="password" placeholder="••••••" autocomplete="off"
         style="width:100%;background:#f5f5f5;border:1.5px solid #e0e0e0;border-radius:10px;padding:11px 14px;font-size:16px;letter-spacing:3px;text-align:center;outline:none;box-sizing:border-box"
         onkeydown="if(event.key==='Enter')_ok()"/>
@@ -173,8 +172,7 @@ function set(u){st={...st,...u};
       <button onclick="_ok()" style="margin-top:14px;width:100%;background:#185FA5;color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">Entrar →</button>
     </div>
   </div>`;
-  // Não executa o render enquanto não tiver senha
-  window._semSenha = true;
+  window._semSenha=true;
 })();
 function _ok(){
   const s=document.getElementById("_sv")?.value?.trim();
@@ -189,7 +187,7 @@ if(!window._semSenha) render();}
 
 async function api(msgs,sys){
   const senha=localStorage.getItem("ev_senha")||"";
-  const r=await fetch("https://avaliador-gemini.diegoandreiaguiar.workers.dev",{
+  const r=await fetch("/api/chat",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({messages:msgs,systemPrompt:sys||_S,senha})
