@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agente Avaliador 2.0 — Método Evolution</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#1a1a1a;font-size:14px;line-height:1.5;background:#f5f5f5}
+input,textarea{font-family:inherit;font-size:14px;color:#1a1a1a;background:#fff;border:1px solid #d0d0d0;border-radius:8px;outline:none;width:100%;padding:10px 12px;box-sizing:border-box}
+input:focus,textarea:focus{border-color:#185FA5;box-shadow:0 0 0 2px rgba(24,95,165,.12)}
+button{font-family:inherit;cursor:pointer;border:1px solid #d0d0d0;border-radius:8px;background:#fff;color:#1a1a1a;font-size:13px;padding:8px 14px;transition:background .15s}
+button:hover:not(:disabled){background:#f0f0f0}
+button:disabled{opacity:.38;cursor:default}
+.btn-p{background:#185FA5;border-color:#185FA5;color:#fff;font-weight:500}
+.btn-p:hover:not(:disabled){background:#0C447C}
+.card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:16px 20px}
+.lbl{font-size:10px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:#777;margin-bottom:5px}
+.pill{display:inline-flex;align-items:center;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:500}
+.pD{background:#FCEBEB;color:#A32D2D}.pI{background:#FAEEDA;color:#854F0B}
+.pS{background:#EAF3DE;color:#3B6D11}.pC{background:#E6F1FB;color:#185FA5}
+.px{background:#f0f0f0;color:#777}
+.kw{background:#FAEEDA;color:#854F0B;padding:2px 8px;border-radius:100px;font-size:11px;font-weight:500;display:inline-flex}
+.alert-b{background:#FEE;border-radius:8px;padding:9px 13px;font-size:12px;color:#A32D2D}
+.tip-b{background:#f5f5f5;border-radius:8px;padding:9px 13px;font-size:12px;color:#777}
+.info-b{background:#E6F1FB;border-radius:12px;padding:14px 18px}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const _S=`Você é o Agente Avaliador Evolution — sistema especializado em vendas consultivas para clínicas odontológicas que usam o Método Evolution.
+
+SEQUÊNCIA COMPLETA:
+
+PREPARAÇÃO (avaliador faz a si mesmo — NÃO para a paciente):
+P1 — Origem e dor: "Qual é o motivo que trouxe essa paciente? O que ela sinalizou?"
+P2 — Perfil da pessoa: "Quem é essa pessoa? Profissão, família, estado civil, onde mora?"
+P3 — Estado agora: "Como ela está agora? Com dor, calma, ansiosa, elétrica?"
+P4 — Estudo visual: foto no cadastro → Instagram → recepção → "[Nome]? Seja muito bem-vinda, te estava esperando."
+PORTÃO: Só chama quando tiver respondido as quatro.
+
+RAPPORT — camada contínua (ativa do primeiro contato ao pós-fechamento):
+Tom de voz espelhado: D(rápida/direta)=ritmo rápido, respostas curtas | I(animada/expressiva)=energia, tom caloroso | S(quieta/tensa)=desacelera, tom suave, não preencha silêncio | C(formal/analítica)=respeitoso, preciso, dados antes de emoção
+Espelhamento corporal: velocidade da fala, postura, volume, gestos — sutil, nunca mecânico
+Adaptação DISC contínua: D impaciente=corte rodeio | I dispersa=pergunta emocional | S tensa=confirme cada etapa | C técnica=precisão, não simplifique
+NUNCA adaptar para o que é cômodo para o avaliador. O rapport serve ela.
+Nome dela pelo menos 3× na consulta.
+
+FASE 1 — ABERTURA (1 pergunta, entrada direta):
+A3: "[Nome], já sei que você veio por causa do [X]. Por que isso é um problema para você?"
+NUNCA comece com procedimento, preço ou agenda.
+
+FASE 2 — DIAGNÓSTICO DISC (4 observações, não questionário):
+SEQUÊNCIA OBRIGATÓRIA — NESSA ORDEM EXATA, SEM PULAR:
+1º D0 — Leitura de tom (NÃO é pergunta, é observação): classifique o tom da resposta à abertura. Direta=D | Contou história/mencionou alguém=I | Hesitante/devagar=S | Detalhada/pesquisou=C
+2º D1 — Decisor+Autonomia (URGENTE — É A PRIMEIRA PERGUNTA APÓS A ABERTURA): "Seja muito bem-vinda, você é minha convidada. Nós sabemos que o que a gente faz aqui muda a vida das pessoas — e por isso tenho uma pergunta importante pra mim antes de começar. Além de você, tem mais alguém que precisa participar da decisão de você iniciar o tratamento? Alguém cuja opinião importa na hora de decidir? Ou você toma esse tipo de decisão baseada na sua própria opinião?"
+→ D/I=decide sozinha. S=consulta parceiro. C=precisa de mais dados.
+→ SE SIM: não está fechando com ela, está preparando para convencer parceiro. Pergunte: "O que vocês dois já pensaram sobre esse tratamento?" Ao final, ofereça resumo por escrito e convide o parceiro.
+3º D2 — Histórico do problema: "Qual foi a última vez que você avaliou esse [problema]?"
+→ Específico ao motivo dela. Observe nível de detalhe e emoção — confirma ou ajusta o perfil DISC de D0.
+4º S1 — Tempo de indecisão (em sequência, ainda na fase DISC): "Há quanto tempo você identificou a necessidade de resolver isso? / Há quanto tempo você está desejando resolver?"
+→ Se "faz anos" → desafio é tomada de decisão, não preço. Muda toda a estratégia.
+PORTÃO: Perfil consistente nas 4 observações + decisor mapeado + tempo de indecisão coletado. NÃO avance sem isso.
+
+FASE 3 — SPIN (20 min, escuta ativa):
+A paciente constrói o argumento de compra com as próprias palavras. ANOTE as palavras EXATAS — serão espelhadas no diagnóstico.
+S — Situação (S1 JÁ FEITA na Fase 2 — NÃO REPETE):
+S3: "O que te impediu de fazer o tratamento antes?" → ela revela a objeção que vai aparecer no fechamento.
+PORTÃO S: Tempo de indecisão mapeado + objeção prévia identificada.
+P — Problema (P1 JÁ FEITA na abertura A3 — NÃO REPETE):
+P2: "O que você gostaria que NÃO acontecesse no seu tratamento?"
+PORTÃO P: Dor nomeada com as palavras dela.
+I — Implicação:
+I1: "Em que momentos da sua vida você sente dificuldade por causa disso?"
+I2: "O que aconteceu recentemente que te fez pensar: preciso resolver isso agora?"
+I3 — Posicionamento empático (NÃO é pergunta): "Pô, isso deve ser bem desafiador. No seu lugar, talvez eu me sentisse da mesma forma — ou até pior."
+PORTÃO I: Ela verbalizou impacto emocional ou prático.
+N — Necessidade de solução:
+N1: "Se eu fizesse exatamente isso — qual seria o primeiro benefício que você sentiria?"
+N2: "O que mudaria na sua vida se isso já estivesse resolvido?"
+N3 — Fechamento suave: "E o que você está esperando para a gente realizar?"
+PORTÃO N: Ela descreveu o resultado com as próprias palavras.
+REGRA DO SILÊNCIO: 3 segundos valem mais que qualquer argumento.
+
+FASE 4 — DIAGNÓSTICO (15 min):
+Regra do Espelho OBRIGATÓRIA — 2+ palavras EXATAS:
+"Pelo que estou vendo, [Nome], o que vai trazer [PALAVRAS DELA] é [X+Y], porque [razão simples]."
+Tom: D=direto | I=visual/emocional | S=passo a passo | C=técnico
+
+FASE 5 — PLANO (15 min):
+Q1: "Para quando quer iniciar?" Q2: "Se valor e condição estiverem ao alcance, começa hoje?" Q3: "Posso apresentar?"
+Camada 1 sempre: Avançado. Camada 2 se travar: Premium (âncora). Camada 3 reserva: Essencial (só S).
+EXCEÇÃO harmonização: pode mostrar os 3 juntos.
+NUNCA: "É um investimento..." / "Pode parcelar bastante..." / "Você que decide..."
+
+FASE 6 — CONVERSÃO (10 min):
+Cialdini: reciprocidade + compromisso(palavras dela) + prova social + urgência interna(NUNCA agenda) + unidade
+"Qual opção faz mais sentido pra você hoje?" → SILÊNCIO 10s
+DISC hesita: D="O que impede?" | I="Consegue se imaginar?" | S="Como está se sentindo?" | C="Dúvida técnica?"
+
+FASE 7 — OBJEÇÕES (LAARC):
+L=Ouvir 3s → A=Reconhecer → A=Isolar("É só isso?") → R=Raiz → C=Confirmar
+Caro: "Caro é sem retorno. Se tiver [resultado], ainda acha caro?"
+Pensar: isola → gatilho → 4 perguntas(melhor/pior agora, melhor/pior esperar)
+Marido: "Ele achar caro — ou 6 meses depois dizer que mudou sua vida?"
+Mais barato: "Nunca foi objetivo ser mais barato. Comparado a quê?"
+Artificial: valide + casos por DISC
+Não é o momento: "O que precisaria mudar?" + gatilho
+
+FASE 8 — PÓS:
+Reforço DISC: D=decisão excelente | I=vão notar | S=cada etapa | C=fundamentada
+Indicações 4 momentos: cesta/flow/desconto/satisfação — sempre 4 indicações
+Follow-up sumidos: Dia1=só nome | Dia2="Fiz algo que te incomodou?" | Dia3=áudio mudo 8s
+
+REGRAS INVIOLÁVEIS:
+- Nunca repita pergunta já feita
+- Nunca avance sem portão vencido
+- Nunca sugira desconto espontâneo
+- Sempre use palavras exatas no espelho (mínimo 2)
+- Urgência vem da vida dela — nunca da agenda
+- O perfil DISC é hipótese, refine a cada turno
+- Uma pergunta por vez, espere resposta
+
+RESPONDA SOMENTE EM JSON VÁLIDO SEM MARKDOWN:
+{"analise":"2-3 frases","palavras_chave":["exatas"],"disc":{"perfil":"D|I|S|C|misto|?","confianca":0,"sinal":"revelou"},"proxima_pergunta":"pergunta exata","racional":"1 frase","avanca_fase":false,"proxima_fase":"disc","alerta":null,"relatorio_item":"1 insight","dor":null,"desejo":null,"gatilho":null}
+
+Para alerta: null OU {"tipo":"decisor_ausente|objecao_emergindo|portao_travado","mensagem":"acao"}
+Para dor/desejo/gatilho: null até identificar, depois string com as palavras dela.`;
+
+const _F=`Você é o Agente Avaliador Evolution. Gere o relatório final. SOMENTE JSON válido sem markdown:
+{"resumo":"3-4 frases","disc_perfil":"D|I|S|C|misto","disc_desc":"condução futura","dor":"palavras exatas","desejo":"palavras dela","gatilho":"o que trouxe","objecoes":["lista"],"decisor":"sozinha ou alguém","plano":"qual e por quê","tom":"comunicação futura","resultado":"fechou|agendou_retorno|pensando|sem_agendamento","proximo":"ação concreta","followup":"mensagem 24-48h adaptada DISC","indicacoes":"quantas e momento"}`;
+
+const PH={
+  abertura:{l:"Abertura",c:"#0F6E56",d:"2 min"},
+  disc:    {l:"DISC",c:"#185FA5",d:"8 min"},
+  spin:    {l:"SPIN",c:"#3B6D11",d:"20 min"},
+  diag:    {l:"Diagnóstico",c:"#854F0B",d:"15 min"},
+  plano:   {l:"Plano",c:"#185FA5",d:"15 min"},
+  conv:    {l:"Conversão",c:"#533489",d:"10 min"},
+  obj:     {l:"Objeções",c:"#A32D2D",d:"—"},
+  pos:     {l:"Pós",c:"#3B6D11",d:"5 min"},
+};
+const PO=["abertura","disc","spin","diag","plano","conv","obj","pos","fim"];
+const DL={D:"Dominante",I:"Influente",S:"Estável",C:"Conforme","?":"Detectando...",misto:"Misto"};
+const DP={D:"pD",I:"pI",S:"pS",C:"pC","?":"px",misto:"px"};
+
+let st={
+  sc:"setup",apiKey:"",
+  name:"",origin:"",phase:"abertura",q:"",
+  loading:false,err:"",hist:[],
+  disc:{perfil:"?",confianca:0,sinal:""},
+  kw:[],dor:"",desejo:"",gatilho:"",
+  alertas:[],items:[],log:[],
+  rep:null,repLoading:false
+};
+
+function set(u){st={...st,...u};
+// ── Tela de senha ──────────────────────────────────
+(function(){
+  if(localStorage.getItem("ev_senha")) return;
+  document.getElementById("root").innerHTML=`
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f5;padding:20px">
+    <div style="background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:36px 32px;max-width:400px;width:100%;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+      <div style="font-size:22px;font-weight:700;color:#185FA5;margin-bottom:4px">Agente Avaliador 2.0</div>
+      <div style="font-size:11px;color:#888;letter-spacing:.5px;text-transform:uppercase;margin-bottom:28px">Método Evolution · Acesso exclusivo</div>
+      <label style="font-size:13px;color:#555;text-align:left;margin-bottom:8px;display:block">Senha de acesso do mês</label>
+      <input id="_sv" type="password" placeholder="••••••" autocomplete="off"
+        style="width:100%;background:#f5f5f5;border:1.5px solid #e0e0e0;border-radius:10px;padding:11px 14px;font-size:16px;letter-spacing:3px;text-align:center;outline:none;box-sizing:border-box"
+        onkeydown="if(event.key==='Enter')_ok()"/>
+      <div id="_se" style="color:#A32D2D;font-size:12px;margin:8px 0 0;display:none">Senha incorreta.</div>
+      <button onclick="_ok()" style="margin-top:14px;width:100%;background:#185FA5;color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">Entrar →</button>
+    </div>
+  </div>`;
+  // Não executa o render enquanto não tiver senha
+  window._semSenha = true;
+})();
+function _ok(){
+  const s=document.getElementById("_sv")?.value?.trim();
+  if(!s){document.getElementById("_se").style.display="block";return;}
+  localStorage.setItem("ev_senha",s);
+  window._semSenha=false;
+  document.getElementById("root").innerHTML="";
+  render();
+}
+
+if(!window._semSenha) render();}
+
+async function api(msgs,sys){
+  const senha=localStorage.getItem("ev_senha")||"";
+  const r=await fetch("https://avaliador-gemini.diegoandreiaguiar.workers.dev",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({messages:msgs,systemPrompt:sys||_S,senha})
+  });
+  const d=await r.json();
+  if(d.error==="senha_invalida"){localStorage.removeItem("ev_senha");location.reload();throw new Error("senha_invalida");}
+  if(!r.ok){throw new Error("Erro "+r.status);}
+  const txt=d.content||"";
+  let p;
+  try{p=JSON.parse(txt);}catch{const m=txt.match(/\{[\s\S]*\}/);if(m)p=JSON.parse(m[0]);else throw new Error("Resposta inválida");}
+  return p;
+}
+
+function start(){
+  const n=document.getElementById("n")?.value?.trim();
+  const o=document.getElementById("o")?.value?.trim();
+  if(!n)return;
+  const q=o
+    ?`${n}, já sei que você veio por causa do ${o}. Por que isso é um problema para você?`
+    :`${n}, me conta: o que te trouxe até aqui hoje?`;
+  set({sc:"consulta",name:n,origin:o||"",phase:"abertura",q,
+    log:[{ph:"abertura",q,r:"",a:""}],
+    alertas:o?[]:[{tipo:"portao_travado",mensagem:"Origem não informada — identifique o motivo na primeira fala para usar a abertura A3."}]});
+  setTimeout(()=>focus_resp(),80);
+}
+
+async function send(){
+  const r=document.getElementById("resp")?.value?.trim();
+  if(!r||st.loading)return;
+  set({loading:true,err:""});
+  try{
+    const msg=`FASE: ${st.phase}\nPACIENTE: ${st.name}\nORIGEM: ${st.origin||"não informado"}\nDISC: ${st.disc.perfil} (${st.disc.confianca}%)\nPALAVRAS COLETADAS: ${st.kw.join(", ")||"nenhuma"}\nDOR: ${st.dor||"coletando"}\nDESEJO: ${st.desejo||"coletando"}\nGATILHO: ${st.gatilho||"coletando"}\nPERGUNTA FEITA: "${st.q}"\nRESPOSTA: "${r}"`;
+    const msgs=[...st.hist,{role:"user",content:msg}];
+    const res=await api(msgs);
+    const nh=[...msgs,{role:"assistant",content:JSON.stringify(res)}];
+    const u={hist:nh};
+    if(res.disc?.confianca>st.disc.confianca) u.disc=res.disc;
+    if(res.palavras_chave?.length) u.kw=[...new Set([...st.kw,...res.palavras_chave])];
+    if(res.dor&&!st.dor) u.dor=res.dor;
+    if(res.desejo&&!st.desejo) u.desejo=res.desejo;
+    if(res.gatilho&&!st.gatilho) u.gatilho=res.gatilho;
+    if(res.relatorio_item){
+      u.items=[...st.items,{ph:st.phase,t:res.relatorio_item}];
+      const tt=res.relatorio_item.toLowerCase();
+      if(!st.dor&&!u.dor&&(tt.includes("dor")||tt.includes("incomoda")||tt.includes("problema"))) u.dor=res.relatorio_item;
+      if(!st.desejo&&!u.desejo&&(tt.includes("quer")||tt.includes("result")||tt.includes("muda"))) u.desejo=res.relatorio_item;
+      if(!st.gatilho&&!u.gatilho&&(tt.includes("gatilho")||tt.includes("evento")||tt.includes("recente"))) u.gatilho=res.relatorio_item;
+    }
+    if(res.alerta) u.alertas=[...st.alertas,res.alerta];
+    const log=[...st.log];
+    if(log.length) log[log.length-1]={...log[log.length-1],r,a:res.analise||""};
+    const next=res.avanca_fase?(res.proxima_fase||st.phase):st.phase;
+    u.phase=next; u.q=res.proxima_pergunta||"";
+    if(next!=="fim"&&res.proxima_pergunta) log.push({ph:next,q:res.proxima_pergunta,r:"",a:""});
+    u.log=log; u.loading=false;
+    set({...st,...u});
+    document.getElementById("resp").value="";
+    if(next==="fim") setTimeout(()=>genRep(),300);
+    setTimeout(()=>{focus_resp();scrollLog();},80);
+  }catch(e){set({loading:false,err:e.message});}
+}
+
+async function advance(){
+  const idx=PO.indexOf(st.phase);
+  if(idx>=PO.length-1)return;
+  const next=PO[idx+1];
+  if(next==="fim"){genRep();return;}
+  set({loading:true,phase:next,err:""});
+  try{
+    const msgs=[...st.hist,{role:"user",content:`AVANÇO MANUAL para fase: ${next}. Paciente: ${st.name}. DISC: ${st.disc.perfil} (${st.disc.confianca}%). Origem: ${st.origin}. Palavras: ${st.kw.join(", ")||"nenhuma"}. Gere a primeira pergunta ideal.`}];
+    const res=await api(msgs);
+    const q=res.proxima_pergunta||"";
+    const log=[...st.log,{ph:next,q,r:"",a:""}];
+    set({loading:false,q,log,hist:[...msgs,{role:"assistant",content:JSON.stringify(res)}]});
+    setTimeout(()=>focus_resp(),80);
+  }catch(e){set({loading:false,err:e.message});}
+}
+
+async function genRep(){
+  set({sc:"rep",repLoading:true});
+  try{
+    const ctx=`CONSULTA: ${st.name} | DISC: ${st.disc.perfil} (${st.disc.confianca}%) | Origem: ${st.origin} | Palavras: ${st.kw.join(", ")} | Dor: ${st.dor} | Desejo: ${st.desejo} | Gatilho: ${st.gatilho} | Alertas: ${st.alertas.map(a=>a.mensagem).join("; ")||"nenhum"}\nHistórico:\n${st.log.filter(l=>l.r).map(l=>`[${l.ph}] P: ${l.q} | R: ${l.r}`).join("\n")}`;
+    const msgs=[...st.hist,{role:"user",content:ctx}];
+    const res=await api(msgs,_F);
+    set({rep:res,repLoading:false});
+  }catch(e){set({repLoading:false,err:e.message});}
+}
+
+function reset(){
+  const k=st.apiKey;
+  st={sc:"setup",apiKey:k,name:"",origin:"",phase:"abertura",q:"",loading:false,err:"",hist:[],
+    disc:{perfil:"?",confianca:0,sinal:""},kw:[],dor:"",desejo:"",gatilho:"",
+    alertas:[],items:[],log:[],rep:null,repLoading:false};
+  render();
+}
+
+function copyRep(){
+  if(!st.rep)return;
+  const f=st.rep;
+  navigator.clipboard.writeText([
+    `RELATÓRIO EVOLUTION — ${st.name} | ${new Date().toLocaleDateString("pt-BR")}`,
+    `Resultado: ${f.resultado||"—"}  |  DISC: ${f.disc_perfil} — ${f.disc_desc}`,
+    ``,`Dor: ${f.dor||"—"}`,`Desejo: ${f.desejo||"—"}`,`Gatilho: ${f.gatilho||"—"}`,`Decisor: ${f.decisor||"—"}`,
+    ``,`Resumo: ${f.resumo||"—"}`,``,`Plano: ${f.plano||"—"}`,``,`Próximo: ${f.proximo||"—"}`,
+    ``,`Follow-up: ${f.followup||"—"}`,``,`Indicações: ${f.indicacoes||"—"}`,``,`Objeções: ${(f.objecoes||[]).join(", ")||"—"}`,
+  ].join("\n")).catch(()=>{});
+}
+
+function saveKey(){
+  const k=document.getElementById("apikey")?.value?.trim();
+  if(!k)return;
+  st.apiKey=k;
+  set({sc:"setup"});
+}
+
+function focus_resp(){document.getElementById("resp")?.focus();}
+function scrollLog(){const e=document.getElementById("lp");if(e)e.scrollTop=e.scrollHeight;}
+
+function render(){
+  const root=document.getElementById("root");
+  if(!root)return;
+  if(st.sc==="key") root.innerHTML=rKey();
+  else if(st.sc==="setup") root.innerHTML=rSetup();
+  else if(st.sc==="consulta") root.innerHTML=rConsulta();
+  else root.innerHTML=rRep();
+  bind();
+}
+
+function rKey(){return `
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px">
+  <div class="card" style="max-width:460px;width:100%">
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="width:48px;height:48px;border-radius:50%;background:#185FA5;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:20px;font-weight:600;color:#fff">E</div>
+      <h2 style="font-size:20px;font-weight:600">Agente Avaliador 2.0</h2>
+      <p style="font-size:13px;color:#777;margin-top:4px">Método Evolution</p>
+    </div>
+    <div class="lbl">Chave da API Gemini</div>
+    <input id="apikey" type="password" placeholder="AIza..." autocomplete="off" style="margin-bottom:6px">
+    <p style="font-size:11px;color:#999;margin-bottom:20px">Crie sua chave em <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#185FA5">Google AI Studio</a>. Fica apenas no seu navegador.</p>
+    <button id="btn-key" class="btn-p" style="width:100%;padding:11px">Continuar</button>
+  </div>
+</div>`;}
+
+function rSetup(){return `
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px">
+  <div class="card" style="max-width:460px;width:100%">
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="width:48px;height:48px;border-radius:50%;background:#185FA5;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:20px;font-weight:600;color:#fff">E</div>
+      <h2 style="font-size:20px;font-weight:600">Agente Avaliador 2.0</h2>
+      <p style="font-size:13px;color:#777;margin-top:4px">Método Evolution</p>
+    </div>
+    <div style="margin-bottom:14px">
+      <div class="lbl">Nome da paciente</div>
+      <input id="n" placeholder="Ex: Maria Santos" autocomplete="off">
+    </div>
+    <div style="margin-bottom:20px">
+      <div class="lbl">Motivo da visita <span style="font-weight:400;text-transform:none;font-size:11px;color:#999">(do cadastro — opcional)</span></div>
+      <input id="o" placeholder="Ex: implante, harmonização..." autocomplete="off">
+      <p style="font-size:11px;color:#999;margin-top:5px">Com motivo → abertura direta A3. Sem → abertura aberta.</p>
+    </div>
+    <div style="background:#f5f5f5;border-radius:10px;padding:14px 16px;margin-bottom:20px">
+      <p style="font-size:11px;font-weight:600;color:#777;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">Checklist antes de chamar (P1–P4)</p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label style="display:flex;gap:10px;font-size:13px;cursor:pointer;align-items:center"><input type="checkbox" style="width:18px;height:18px;accent-color:#185FA5;flex-shrink:0;cursor:pointer"> P1 — Motivo e dor identificados no cadastro</label>
+        <label style="display:flex;gap:10px;font-size:13px;cursor:pointer;align-items:center"><input type="checkbox" style="width:18px;height:18px;accent-color:#185FA5;flex-shrink:0;cursor:pointer"> P2 — Perfil socioeconômico mapeado</label>
+        <label style="display:flex;gap:10px;font-size:13px;cursor:pointer;align-items:center"><input type="checkbox" style="width:18px;height:18px;accent-color:#185FA5;flex-shrink:0;cursor:pointer"> P3 — Estado emocional estimado</label>
+        <label style="display:flex;gap:10px;font-size:13px;cursor:pointer;align-items:center"><input type="checkbox" style="width:18px;height:18px;accent-color:#185FA5;flex-shrink:0;cursor:pointer"> P4 — Foto + Instagram + ir até ela na recepção</label>
+      </div>
+    </div>
+    <button id="btn-start" class="btn-p" style="width:100%;padding:11px" disabled>Iniciar consulta</button>
+  </div>
+</div>`;}
+
+function rConsulta(){
+  const ph=PH[st.phase]||PH.abertura;
+  const pi=PO.indexOf(st.phase);
+  const disc=st.disc;
+  const done=st.log.filter(l=>l.r);
+
+  const dots=PO.filter(p=>p!=="fim").map((p,i)=>{
+    const c=i<=pi?"#fff":"rgba(255,255,255,.3)";
+    return `<div style="width:7px;height:7px;border-radius:50%;background:${c}"></div>`;
+  }).join("");
+
+  const alertHtml=st.alertas.length?`<div class="alert-b" style="margin-bottom:10px">${st.alertas.map(a=>`<p style="margin:0"><strong>${a.tipo==="decisor_ausente"?"DECISOR AUSENTE":a.tipo==="objecao_emergindo"?"OBJEÇÃO EMERGINDO":"PORTÃO TRAVADO"}:</strong> ${a.mensagem}</p>`).join("")}</div>`:"";
+
+  const kwHtml=st.kw.length?`<div style="margin-bottom:12px"><div class="lbl">Palavras-chave dela</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">${st.kw.map(w=>`<span class="kw">${w}</span>`).join("")}</div></div>`:"";
+
+  const dorHtml=[
+    st.dor?`<div style="margin-bottom:10px"><div class="lbl" style="color:#A32D2D">Dor principal</div><p style="font-size:12px;line-height:1.5">${st.dor}</p></div>`:"",
+    st.desejo?`<div style="margin-bottom:10px"><div class="lbl" style="color:#3B6D11">Desejo</div><p style="font-size:12px;line-height:1.5">${st.desejo}</p></div>`:"",
+    st.gatilho?`<div style="margin-bottom:10px"><div class="lbl" style="color:#854F0B">Gatilho</div><p style="font-size:12px;line-height:1.5">${st.gatilho}</p></div>`:"",
+  ].join("");
+
+  const insHtml=st.items.length?`<div style="margin-bottom:12px"><div class="lbl">Insights</div>${st.items.map(it=>`<div style="padding:6px 10px;border-left:3px solid ${PH[it.ph]?.c||"#888"};background:#f5f5f5;border-radius:0 6px 6px 0;margin-bottom:5px"><p style="font-size:12px;line-height:1.5">${it.t}</p></div>`).join("")}</div>`:"";
+
+  const logHtml=done.length?`<div style="margin-bottom:12px"><div class="lbl">Histórico</div>${done.map(l=>`<div style="background:#f5f5f5;border-radius:8px;padding:10px 12px;margin-bottom:7px"><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="font-size:10px;padding:1px 7px;border-radius:100px;background:${PH[l.ph]?.c||"#888"};color:#fff;font-weight:500">${PH[l.ph]?.l||l.ph}</span></div><p style="font-size:12px;color:#777;font-style:italic;margin-bottom:3px">"${l.q}"</p><p style="font-size:12px;margin-bottom:${l.a?"3px":"0"}">${l.r}</p>${l.a?`<p style="font-size:11px;color:#999">→ ${l.a}</p>`:""}</div>`).join("")}</div>`:"";
+
+  const empty=!done.length&&!st.kw.length&&!st.dor?`<p style="font-size:12px;color:#999;text-align:center;padding-top:40px">As informações aparecerão aqui conforme a consulta avança.</p>`:"";
+
+  return `
+<div style="height:100vh;display:flex;flex-direction:column">
+  <div style="background:${ph.c};padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font-size:14px;font-weight:500;color:#fff">${st.name}</span>
+      <span style="color:#fff;opacity:.35">|</span>
+      <span style="font-size:12px;color:#fff;opacity:.9">${ph.l}</span>
+      <span style="font-size:11px;color:#fff;opacity:.55">${ph.d}</span>
+    </div>
+    <div style="display:flex;gap:4px;align-items:center">${dots}</div>
+  </div>
+
+  <div style="flex:1;display:flex;overflow:hidden">
+    <div style="flex:0 0 57%;display:flex;flex-direction:column;padding:14px;gap:10px;overflow:hidden">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+        <span class="pill ${DP[disc.perfil]||"px"}">${disc.perfil==="?"?"Detectando perfil...":"DISC: "+disc.perfil+" — "+DL[disc.perfil]}</span>
+        ${disc.confianca>0?`<span class="pill px">${disc.confianca}% confiança</span>`:""}
+      </div>
+      ${alertHtml}
+      <div class="card" style="border-left:4px solid ${ph.c};border-radius:0 12px 12px 0;flex-shrink:0">
+        <div class="lbl" style="color:${ph.c}">Pergunte agora</div>
+        <p style="font-size:17px;font-weight:500;line-height:1.45;margin-top:4px">${st.q||"Aguardando..."}</p>
+      </div>
+      <div class="card" style="flex:1;display:flex;flex-direction:column;min-height:0">
+        <div class="lbl">O que ela respondeu? <span style="font-weight:400;text-transform:none;font-size:11px;color:#999">Enter envia · Shift+Enter nova linha</span></div>
+        <textarea id="resp" rows="4" placeholder="Digite o que a paciente respondeu..." style="flex:1;resize:none;min-height:80px;margin-top:6px"></textarea>
+        ${st.err?`<p style="font-size:12px;color:#A32D2D;margin-top:6px;word-break:break-word">${st.err}</p>`:""}
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button id="btn-send" class="btn-p" style="flex:1;padding:10px" ${st.loading?"disabled":""}>${st.loading?"Analisando...":"Registrar e avançar"}</button>
+          <button id="btn-adv" title="Avançar fase manualmente" style="padding:10px 12px" ${st.loading?"disabled":""}>⏩</button>
+          <button id="btn-rep" title="Encerrar e gerar relatório" style="padding:10px 12px" ${st.loading?"disabled":""}>📋</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex:0 0 43%;border-left:1px solid #e8e8e8;display:flex;flex-direction:column;overflow:hidden">
+      <div style="padding:10px 14px;border-bottom:1px solid #e8e8e8;background:#f5f5f5;flex-shrink:0">
+        <p style="font-size:10px;font-weight:600;color:#777;letter-spacing:.5px;text-transform:uppercase">Relatório em construção</p>
+      </div>
+      <div id="lp" style="flex:1;overflow-y:auto;padding:12px 14px">
+        ${kwHtml}${dorHtml}${insHtml}${logHtml}${empty}
+      </div>
+    </div>
+  </div>
+</div>`;}
+
+function rRep(){
+  const f=st.rep;
+  if(st.repLoading)return`<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px"><div style="width:30px;height:30px;border:3px solid #e0e0e0;border-top-color:#185FA5;border-radius:50%;animation:sp 1s linear infinite"></div><p style="color:#777">Gerando relatório...</p></div>`;
+  if(!f)return`<div style="min-height:100vh;display:flex;align-items:center;justify-content:center"><div class="card" style="text-align:center;max-width:320px"><p style="color:#777;margin-bottom:14px">Relatório não disponível.</p><button id="btn-reset" class="btn-p">Nova consulta</button></div></div>`;
+
+  const rc={"fechou":"#EAF3DE","agendou_retorno":"#FAEEDA"}[f.resultado]||"#f0f0f0";
+  const rl={"fechou":"Fechou","agendou_retorno":"Retorno agendado","pensando":"Pensando"}[f.resultado]||"Sem agendamento";
+
+  const secs=[
+    {l:"Resumo executivo",v:f.resumo},
+    {l:"Dor principal",v:f.dor,c:"#A32D2D"},
+    {l:"Desejo principal",v:f.desejo,c:"#3B6D11"},
+    {l:"Gatilho de compra",v:f.gatilho,c:"#854F0B"},
+    {l:"Decisor",v:f.decisor},
+    {l:"Plano recomendado",v:f.plano,c:"#185FA5"},
+    {l:"Tom para comunicação futura",v:f.tom},
+    {l:"Próximo passo",v:f.proximo},
+    {l:"Indicações",v:f.indicacoes,c:"#185FA5"},
+  ].filter(s=>s.v);
+
+  return`
+<div style="max-width:680px;margin:0 auto;padding:24px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+    <div>
+      <h2 style="font-size:18px;font-weight:600">Relatório da consulta</h2>
+      <p style="font-size:13px;color:#777">${st.name} · ${new Date().toLocaleDateString("pt-BR")}</p>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button id="btn-copy">Copiar</button>
+      <button id="btn-reset" class="btn-p">+ Nova consulta</button>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <span class="pill ${DP[f.disc_perfil||"?"]||"px"}">DISC: ${f.disc_perfil||"?"} — ${DL[f.disc_perfil||"?"]||"—"}</span>
+    <span style="padding:3px 10px;border-radius:100px;font-size:11px;font-weight:500;background:${rc}">${rl}</span>
+  </div>
+  ${f.disc_desc?`<div class="tip-b" style="margin-bottom:14px"><p style="font-size:12px">${f.disc_desc}</p></div>`:""}
+  <div class="card" style="margin-bottom:14px">
+    ${secs.map((s,i)=>`<div style="${i<secs.length-1?"padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid #e8e8e8":""}"><div class="lbl" style="color:${s.c||"#777"}">${s.l}</div><p style="font-size:13px;line-height:1.6">${s.v}</p></div>`).join("")}
+  </div>
+  ${st.kw.length?`<div class="card" style="margin-bottom:14px"><div class="lbl">Palavras-chave coletadas</div><div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px">${st.kw.map(w=>`<span class="kw">${w}</span>`).join("")}</div></div>`:""}
+  ${(f.objecoes||[]).length?`<div class="card" style="margin-bottom:14px"><div class="lbl" style="color:#A32D2D">Objeções identificadas</div>${f.objecoes.map(o=>`<p style="font-size:13px;margin-top:5px;color:#777">· ${o}</p>`).join("")}</div>`:""}
+  ${f.followup?`<div class="info-b"><div class="lbl" style="color:#185FA5">Mensagem de acompanhamento (24–48h)</div><p style="font-size:13px;font-style:italic;line-height:1.6;margin-top:6px;color:#185FA5">"${f.followup}"</p></div>`:""}
+</div>`;}
+
+function bind(){
+  document.getElementById("btn-key")?.addEventListener("click",saveKey);
+  document.getElementById("apikey")?.addEventListener("keydown",e=>{if(e.key==="Enter")saveKey();});
+
+  const bs=document.getElementById("btn-start");
+  if(bs){
+    bs.onclick=start;
+    const chk=()=>{bs.disabled=!document.getElementById("n")?.value?.trim();};
+    document.getElementById("n")?.addEventListener("input",chk);
+    document.getElementById("n")?.addEventListener("keydown",e=>{if(e.key==="Enter")start();});
+    document.getElementById("o")?.addEventListener("keydown",e=>{if(e.key==="Enter")start();});
+    chk();
+  }
+  const ta=document.getElementById("resp");
+  if(ta) ta.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send();}});
+  document.getElementById("btn-send")?.addEventListener("click",send);
+  document.getElementById("btn-adv")?.addEventListener("click",advance);
+  document.getElementById("btn-rep")?.addEventListener("click",genRep);
+  document.getElementById("btn-reset")?.addEventListener("click",reset);
+  document.getElementById("btn-copy")?.addEventListener("click",copyRep);
+}
+
+render();
+</script>
+</body>
+</html>
